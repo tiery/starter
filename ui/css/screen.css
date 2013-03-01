@@ -1,0 +1,750 @@
+/* ======================================== *
+ | Function helpers							|
+ * ======================================= */
+/*
+ * Numeric to px value
+ * ie : 200 -> 200px (and not '200px')
+ */
+/* ======================================== *
+ | Mixins									|
+ * ======================================= */
+/*
+ * Properties prefixer
+ */
+/*
+ * Device screen size
+ */
+/*
+ * Font face helper
+ * Attention /!\ nom des fichiers = nom de la font
+ */
+/*
+ * Gradient simple
+ */
+/*
+ * Transition simple
+ */
+/*
+ * Cross browser opacity
+ */
+/*
+ * Input text placeholder style
+ */
+/*
+ * SASS mixins for future proof resolution media query
+ * @author 14islands.com
+ */
+/*
+ * Retinafy background image
+ */
+/*
+ * Sprite
+ */
+/*
+ * Content selection
+ */
+/* ======================================== *
+ | Silent (abstract) classes				|
+ * ======================================= */
+/*
+ * Inline-block
+ */
+audio,
+canvas,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+.lte-ie7 audio,
+.lte-ie7 canvas,
+.lte-ie7 video {
+  display: inline;
+  vertical-align: auto;
+  zoom: 1;
+}
+
+/*
+ * Clearfix
+ * micro version
+ */
+/* @include font-face('itcbold'); */
+/*
+ * Corrects block display not defined in IE6/7/8/9 & FF3
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+}
+
+/*
+ * Corrects inline-block display not defined in IE6/7/8/9 & FF3
+ */
+/*
+ * Prevents modern browsers from displaying 'audio' without controls
+ * Remove excess height in iOS5 devices
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/*  =============================================================================
+	Base
+	========================================================================== */
+/*
+ * 1. Corrects text resizing oddly in IE6/7 when body font-size is set using em units
+ * http://clagnut.com/blog/348/#c790
+ * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
+ * www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
+ */
+html {
+  font-size: 100%;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-font-smoothing: antialiased;
+}
+
+html:before {
+  display: none;
+  content: 'desktop';
+}
+@media only screen and (min-width: 676px) and (max-width: 1000px) {
+  html:before {
+    content: 'tablet';
+  }
+}
+@media only screen and (min-width: 501px) and (max-width: 675px) {
+  html:before {
+    content: 'moblet';
+  }
+}
+@media only screen and (max-width: 500px) {
+  html:before {
+    content: 'mobile';
+  }
+}
+
+/*
+ * Addresses font-family inconsistency between 'textarea' and other form elements.
+ */
+html,
+button,
+input,
+select,
+textarea {
+  font-family: sans-serif;
+}
+
+/*
+ * Body
+ */
+body {
+  margin: 0;
+  font: normal 14px/1.4 arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+}
+
+p {
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  margin: 0;
+}
+
+::-moz-selection {
+  color: #fff;
+  background: #bada55;
+  text-shadow: none;
+}
+
+::selection {
+  color: #fff;
+  background: #bada55;
+  text-shadow: none;
+}
+
+/*
+ * Remove outline on focus
+ */
+/*
+:focus {
+	outline: 0;
+}
+*/
+/*  =============================================================================
+	Links
+	========================================================================== */
+/*
+ * Improves readability when focused and also mouse hovered in all browsers
+ * people.opera.com/patrickl/experiments/keyboard/test
+ */
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  outline: 0;
+}
+
+a:active {
+  outline: 0;
+}
+
+a, .a {
+  color: #222;
+}
+
+.a {
+  cursor: pointer;
+}
+
+/*  =============================================================================
+	Typography
+	========================================================================== */
+/*
+ * Addresses font sizes and margins set differently in IE6/7
+ * Addresses font sizes within 'section' and 'article' in FF4+, Chrome, S5
+ */
+h1 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+h4 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+h5 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+h6 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+/*
+ * Addresses styling not present in IE7/8/9, S5, Chrome
+ */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/*
+ * Addresses style set to 'bolder' in FF3+, S4/5, Chrome
+*/
+b {
+  font-weight: bold;
+}
+
+strong {
+  font-weight: bold;
+}
+
+blockquote {
+  margin: 0;
+}
+
+/*
+ * Addresses styling not present in S5, Chrome
+ */
+dfn {
+  font-style: italic;
+}
+
+/*
+ * Addresses styling not present in IE6/7/8/9
+ */
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+/*
+ * Addresses margins set differently in IE6/7
+ */
+pre {
+  margin: 0;
+}
+
+/*
+ * Corrects font family set oddly in IE6, S4/5, Chrome
+ * en.wikipedia.org/wiki/User:Davidgothberg/Test59
+ */
+pre,
+code,
+kbd,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+
+/*
+ * Improves readability of pre-formatted text in all browsers
+ */
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/*
+ * 1. Addresses CSS quotes not supported in IE6/7
+ * 2. Addresses quote property not supported in S4
+ */
+/* 1 */
+q {
+  quotes: none;
+}
+
+/* 2 */
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+small {
+  font-size: 1em;
+}
+
+/*
+ * Prevents sub and sup affecting line-height in all browsers
+ * gist.github.com/413930
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/*  =============================================================================
+	Lists
+	========================================================================== */
+/*
+ * Addresses margins set differently in IE6/7
+ */
+ol {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+}
+
+dl {
+  margin: 0;
+}
+
+dd {
+  margin: 0;
+}
+
+menu {
+  margin: 0;
+}
+
+/*
+ * Addresses paddings set differently in IE6/7
+ */
+menu {
+  padding: 0;
+}
+
+ol {
+  padding: 0;
+}
+
+ul {
+  padding: 0;
+}
+
+/*
+ * Remove list style
+ */
+ul,
+ol {
+  list-style: none;
+}
+
+/*  =============================================================================
+	Embedded content
+	========================================================================== */
+/*
+ * 1. Removes border when inside 'a' element in IE6/7/8/9, FF3
+ * 2. Improves image quality when scaled in IE7
+ *	code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
+ */
+img {
+  border: 0;
+  /* 1 */
+  -ms-interpolation-mode: bicubic;
+  /* 2 */
+}
+
+/*
+ * Corrects overflow displayed oddly in IE9
+ */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/*  =============================================================================
+	Figures
+	========================================================================== */
+/*
+ * Addresses margin not present in IE6/7/8/9, S5, O11
+ */
+figure {
+  margin: 0;
+}
+
+/*  =============================================================================
+	Forms
+	========================================================================== */
+form {
+  margin: 0;
+}
+
+fieldset {
+  border: 0;
+  margin: 0 0 1em 0;
+  padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: middle;
+}
+
+label {
+  cursor: pointer;
+}
+
+button,
+input {
+  line-height: normal;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+.lte-ie7 button, .lte-ie7
+input[type="button"], .lte-ie7
+input[type="reset"], .lte-ie7
+input[type="submit"] {
+  overflow: visible;
+}
+
+button[disabled],
+input[disabled] {
+  cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  outline: 1px dotted #666;
+}
+
+/*  =============================================================================
+	Tables
+	========================================================================== */
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*  =============================================================================
+	Helpers
+	========================================================================== */
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+.tl {
+  text-align: left;
+}
+
+.tc {
+  text-align: center;
+}
+
+.tr {
+  text-align: right;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.cb {
+  clear: both;
+}
+
+/*  =============================================================================
+	Socials
+	========================================================================== */
+.twitter-follow-button,
+.twitter-share-button {
+  color: transparent;
+}
+.no-js .twitter-follow-button, .no-js
+.twitter-share-button {
+  color: inherit;
+}
+
+.legend {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+input[type="tel"], textarea {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+input[type="text"]::-webkit-input-placeholder,
+input[type="password"]::-webkit-input-placeholder,
+input[type="search"]::-webkit-input-placeholder,
+input[type="email"]::-webkit-input-placeholder,
+input[type="url"]::-webkit-input-placeholder,
+input[type="tel"]::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #666;
+}
+input[type="text"]:-ms-input-placeholder,
+input[type="password"]:-ms-input-placeholder,
+input[type="search"]:-ms-input-placeholder,
+input[type="email"]:-ms-input-placeholder,
+input[type="url"]:-ms-input-placeholder,
+input[type="tel"]:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #666;
+}
+input[type="text"]:-moz-placeholder,
+input[type="password"]:-moz-placeholder,
+input[type="search"]:-moz-placeholder,
+input[type="email"]:-moz-placeholder,
+input[type="url"]:-moz-placeholder,
+input[type="tel"]:-moz-placeholder, textarea:-moz-placeholder {
+  color: #666;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="tel"]:focus, textarea:focus {
+  border-color: #666;
+}
+input[type="text"]:focus::-webkit-input-placeholder,
+input[type="password"]:focus::-webkit-input-placeholder,
+input[type="search"]:focus::-webkit-input-placeholder,
+input[type="email"]:focus::-webkit-input-placeholder,
+input[type="url"]:focus::-webkit-input-placeholder,
+input[type="tel"]:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+input[type="text"]:focus:-ms-input-placeholder,
+input[type="password"]:focus:-ms-input-placeholder,
+input[type="search"]:focus:-ms-input-placeholder,
+input[type="email"]:focus:-ms-input-placeholder,
+input[type="url"]:focus:-ms-input-placeholder,
+input[type="tel"]:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder {
+  color: transparent;
+}
+input[type="text"]:focus:-moz-placeholder,
+input[type="password"]:focus:-moz-placeholder,
+input[type="search"]:focus:-moz-placeholder,
+input[type="email"]:focus:-moz-placeholder,
+input[type="url"]:focus:-moz-placeholder,
+input[type="tel"]:focus:-moz-placeholder, textarea:focus:-moz-placeholder {
+  color: transparent;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+input[type="tel"] {
+  height: 26px;
+}
+.lte-ie7 input[type="text"], .lte-ie7
+input[type="password"], .lte-ie7
+input[type="search"], .lte-ie7
+input[type="email"], .lte-ie7
+input[type="url"], .lte-ie7
+input[type="tel"] {
+  height: 14px;
+}
+
+textarea {
+  width: 200px;
+  height: 75px;
+}
+
+/* @import '_modules/header'; */
+@media print {
+  @page {
+    margin: 0;
+}
+
+  .site {
+    margin: 0 10%;
+  }
+
+  .trunk {
+    width: auto !important;
+  }
+}
+#templates {
+  position: fixed;
+  z-index: 99999;
+  bottom: 5px;
+  right: 5px;
+  font-size: 12px;
+}
+#templates dt {
+  padding: 5px 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  border: 1px solid #DDD;
+}
+#templates dd {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 125px;
+  margin-top: -1px;
+  background-color: #f5f5f5;
+  border: 1px solid #DDD;
+}
+#templates:hover dd {
+  display: block;
+}
+#templates li + li {
+  border-top: 1px solid #DDD;
+}
+#templates a, #templates label {
+  display: block;
+  padding: 7px 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#templates a:hover, #templates label:hover {
+  background-color: #fff;
+}
+#templates li.current a {
+  font-weight: bold;
+}

@@ -1,0 +1,245 @@
+/* ======================================== *
+ | Function helpers							|
+ * ======================================= */
+ 
+/*
+ * Numeric to px value
+ * ie : 200 -> 200px (and not '200px')
+ */
+@function numToPx ($num) {
+	@return $num + px;
+}
+
+/* ======================================== *
+ | Mixins									|
+ * ======================================= */
+
+/*
+ * Properties prefixer
+ */
+$prefix-for-webkit:    true !default;
+$prefix-for-mozilla:   true !default;
+$prefix-for-microsoft: true !default;
+$prefix-for-opera:     true !default;
+$prefix-for-spec:      true !default;
+
+@mixin prefixer ($property, $value, $prefixes: webkit moz ms o spec) {
+	@each $prefix in $prefixes {
+		@if $prefix == webkit and $prefix-for-webkit == true {
+			-webkit-#{$property}: $value;
+	    }
+		@else if $prefix == moz and $prefix-for-mozilla == true {
+			-moz-#{$property}: $value;
+		}
+		@else if $prefix == ms and $prefix-for-microsoft == true {
+			-ms-#{$property}: $value;
+		}
+		@else if $prefix == o and $prefix-for-opera == true {
+			-o-#{$property}: $value;
+		}
+		@else if $prefix == spec and $prefix-for-spec == true {
+			#{$property}: $value;
+		}
+		@else  {
+			@warn "Unrecognized prefix: #{$prefix}";
+		}
+	}
+}
+
+@mixin disable-prefix-for-all() {
+  $prefix-for-webkit:    false;
+  $prefix-for-mozilla:   false;
+  $prefix-for-microsoft: false;
+  $prefix-for-opera:     false;
+  $prefix-for-spec:      false;
+}
+
+/*
+ * Device screen size
+ */
+@mixin device($media, $only: false) {
+	@if $media == mobile {
+		@media only screen and (max-width: numToPx($sizeMobile)) { @content; }
+	}
+	@else if $media == moblet {
+		@if $only == true {
+			@media only screen and (min-width: numToPx($sizeMobile + 1)) and (max-width: numToPx($sizeMoblet)) { @content; }
+		}
+		@else {
+			@media only screen and (max-width: numToPx($sizeMoblet)) { @content; }
+		}
+	}
+	@else if $media == tablet {
+		@if $only == true {
+			@media only screen and (min-width: numToPx($sizeMoblet + 1)) and (max-width: numToPx($sizeTablet)) { @content; }
+		}
+		@else {
+			@media only screen and (max-width: numToPx($sizeTablet)) { @content; }
+		}
+	}
+	@else {
+		@media only screen and (max-width: $media) { @content; }
+	}
+}
+
+/*
+ * Font face helper
+ * Attention /!\ nom des fichiers = nom de la font
+ */
+@mixin font-face ($name, $weight: normal, $style: normal) {
+	$file: $pathFont + $name + '.';
+	font-family: $name;
+    src: url($file + 'eot');
+    src: url($file + 'eot?#iefix') format('embedded-opentype'),
+         url($file + 'woff') format('woff'),
+         url($file + 'ttf') format('truetype'),
+         url($file + 'svg#dinotbold') format('svg');
+    font-weight: $weight;
+    font-style: $style;
+}
+
+/*
+ * Gradient simple
+ */
+@mixin gradient($from, $to) {
+	background: $to; // Old browsers
+	background: -moz-linear-gradient(top, $from 0%, $to 100%); // FF3.6+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); // Chrome,Safari4+
+	background: -webkit-linear-gradient(top, $from 0%,$to 100%); // Chrome10+,Safari5.1+
+	background: -o-linear-gradient(top, $from 0%,$to 100%); // Opera 11.10+
+	background: -ms-linear-gradient(top, $from 0%,$to 100%); // IE10+
+	background: linear-gradient(to bottom, $from 0%,$to 100%); // W3C
+}
+
+/*
+ * Transition simple
+ */
+@mixin transition($prop: all, $dur: .2s, $fn: ease-in) {
+	-webkit-transition: $prop $dur $fn;
+	-moz-transition: $prop $dur $fn;
+	-ms-transition: $prop $dur $fn;
+	-o-transition: $prop $dur $fn;
+	transition: $prop $dur $fn;
+}
+
+/*
+ * Cross browser opacity
+ */
+@mixin opacity($value) {
+	filter: alpha(opacity=$value);
+	-ms-filter: "alpha(opacity=$value)";
+	@include prefixer(opacity, $value, webkit moz khtml);
+}
+
+/*
+ * Input text placeholder style
+ */
+@mixin placeholder {
+	&::-webkit-input-placeholder { @content; }
+	&:-ms-input-placeholder { @content; }
+	&:-moz-placeholder { @content; }
+}
+
+/*
+ * SASS mixins for future proof resolution media query
+ * @author 14islands.com
+ */
+@mixin if-resolution($prefix, $dppx) {
+	$dpi: $dppx * 96;
+	@media
+		(-webkit-#{$prefix}-device-pixel-ratio: #{$dppx}),
+		(   #{$prefix}--moz-device-pixel-ratio: #{$dppx}),
+		(     -o-#{$prefix}-device-pixel-ratio: #{$dppx*2}/2),
+		(        #{$prefix}-device-pixel-ratio: #{$dppx}),
+		(                #{$prefix}-resolution: #{$dpi}dpi),
+		(                #{$prefix}-resolution: #{$dppx}dppx) {
+			@content;
+	}
+}
+@mixin if-min-res($dppx) {
+	@include if-resolution(min, $dppx) {
+		@content;
+	}
+}
+
+@mixin if-max-res($dppx) {
+	@include if-resolution(max, $dppx) {
+		@content;
+	}
+}
+
+/*
+ * Retinafy background image
+ */
+@mixin retinafy ($image, $width, $height, $color: transparent, $ext: 'png') {
+	background-color: $color;
+	@include if-max-res(1.49) {
+		background-image: url($image + '.' + $ext);
+	}
+	@include if-min-res(1.50) {
+		background-image: url($image + '-2x.' + $ext);
+		background-size: $width $height;
+	}
+	.lte-ie8 & {
+		background-image: url($image + '.' + $ext);
+	}
+}
+
+/*
+ * Sprite
+ */
+@mixin sprite ($width, $height, $pos1: 0, $pos2: 0, $name: 'sprite.png') {
+	width: $width;
+	height: $height;
+	background-position: $pos1 $pos2;
+	background-repeat: no-repeat;
+	@include retinafy($pathImg + $name + '?v=' + $cacheQuery, $spriteWidth, $spriteHeight);
+}
+
+/*
+ * Content selection
+ */
+@mixin selection {
+	::-moz-selection {
+		@content
+	}
+	::selection {
+		@content
+	}
+}
+
+
+/* ======================================== *
+ | Silent (abstract) classes				|
+ * ======================================= */
+
+/*
+ * Inline-block
+ */
+%inline-block {
+	display: inline-block;
+	vertical-align: baseline;
+	.lte-ie7 & {
+		display: inline;
+		vertical-align: auto;
+		zoom: 1;
+	}
+}
+
+/*
+ * Clearfix
+ * micro version
+ */
+%clearfix {
+	&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+	.lte-ie7 & {
+	    zoom: 1;
+	}
+}

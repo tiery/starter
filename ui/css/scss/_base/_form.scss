@@ -1,0 +1,43 @@
+// legend (use div.legend instead of the buggy <legend> element!)
+.legend {
+	margin-bottom: 10px;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+ 
+// base styles for text fields
+%input-text {
+	max-width: 100%;
+	padding: 0;
+	margin: 0;
+	@include prefixer (box-sizing, border-box);
+	@include prefixer (border-radius, 0);
+	@include placeholder {
+		color: #666;
+	}
+	&:focus {
+		border-color: #666;
+		@include placeholder {
+			color: transparent;
+		}
+	}
+}
+
+// base
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+input[type="tel"] {
+	@extend %input-text;
+	height: 26px;
+	.lte-ie7 & {
+		height: 14px;
+	}
+}
+textarea {
+	@extend %input-text;
+	width: 200px;
+	height: 75px;
+}
