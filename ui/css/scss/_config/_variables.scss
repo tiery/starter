@@ -11,16 +11,6 @@ $color1: #BADA55;
 // Font stacks
 $font1: arial, sans-serif;
 $font2: georgia, times, serif;
-$dinot: dinotregular, helvetica, arial, sans-serif;
-$dinotbold: dinotbold, helvetica, arial, sans-serif;
-
-%dinot {
-	font-family: $dinot;
-}
-%dinotbold {
-	font-family: $dinotbold;
-	font-weight: normal;
-}
 
 // Responsive Breakpoints
 $sizeMobile : 500;
