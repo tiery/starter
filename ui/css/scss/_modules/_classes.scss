@@ -1,0 +1,31 @@
+@import '../_config/classes';
+
+/*
+ * Node
+ * Simply add a margin between 2 elements
+ * Every basic module should extend %node 
+ */
+
+%node + %node {
+	margin-top: 10px;
+}
+
+/*
+ * Box
+ */
+%box {
+	@extend %node;
+	padding: 15px;
+	border: 1px solid #ccc;
+	@include prefixer(border-radius, 5px, spec);
+	.demo {
+		font-family: $amerits;
+		+ * {
+			margin-top: 15px;
+		}
+	}
+}
+%box-embossed {
+	@extend %box;
+	box-shadow: inset 0 0 20px rgba(0,0,0,.2);
+}

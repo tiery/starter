@@ -1,0 +1,25 @@
+// Inline-block
+%inline-block {
+	display: inline-block;
+	vertical-align: baseline;
+	.lte-ie7 & {
+		display: inline;
+		vertical-align: auto;
+		zoom: 1;
+	}
+}
+
+// Clearfix (micro version)
+%clearfix {
+	&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+	.lte-ie7 & {
+	    zoom: 1;
+	}
+}

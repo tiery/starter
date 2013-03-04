@@ -83,7 +83,7 @@ textarea {
 
 body {
 	margin: 0;
-	font: normal 14px/1.4 arial, sans-serif;
+	font: normal 14px/1.25 arial, sans-serif;
 	color: #333;
 	background-color: #fff;
 }
@@ -91,10 +91,13 @@ p {
 	word-wrap: break-word;
 	-webkit-hyphens: auto;
 	margin: 0;
+	+ p {
+		margin-top: 10px;
+	}
 }
 @include selection {
 	color: #fff;
-    background: $color1;
+    background: $rose;
     text-shadow: none;
 }
 

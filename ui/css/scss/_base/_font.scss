@@ -1,1 +1,2 @@
-/* @include font-face('itcbold'); */
+@include font-face($font1, $font1 + 'm');
+@include font-face($font1, $font1 + 'b', bold);

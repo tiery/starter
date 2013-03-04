@@ -1,22 +1,18 @@
-/* ======================================== *
- | Function helpers							|
- * ======================================= */
+// =======================================
+// Function helpers
+// =======================================
  
-/*
- * Numeric to px value
- * ie : 200 -> 200px (and not '200px')
- */
+// Numeric to px value
+// ie : 200 -> 200px (and not '200px')
 @function numToPx ($num) {
 	@return $num + px;
 }
 
-/* ======================================== *
- | Mixins									|
- * ======================================= */
+// =======================================
+// Mixins
+// =======================================
 
-/*
- * Properties prefixer
- */
+// Properties prefixer
 $prefix-for-webkit:    true !default;
 $prefix-for-mozilla:   true !default;
 $prefix-for-microsoft: true !default;
@@ -54,9 +50,7 @@ $prefix-for-spec:      true !default;
   $prefix-for-spec:      false;
 }
 
-/*
- * Device screen size
- */
+// Device screen size
 @mixin device($media, $only: false) {
 	@if $media == mobile {
 		@media only screen and (max-width: numToPx($sizeMobile)) { @content; }
@@ -82,25 +76,22 @@ $prefix-for-spec:      true !default;
 	}
 }
 
-/*
- * Font face helper
- * Attention /!\ nom des fichiers = nom de la font
- */
-@mixin font-face ($name, $weight: normal, $style: normal) {
-	$file: $pathFont + $name + '.';
-	font-family: $name;
-    src: url($file + 'eot');
-    src: url($file + 'eot?#iefix') format('embedded-opentype'),
-         url($file + 'woff') format('woff'),
-         url($file + 'ttf') format('truetype'),
-         url($file + 'svg#dinotbold') format('svg');
-    font-weight: $weight;
-    font-style: $style;
+// Font face helper
+// Attention /!\ nom des fichiers = nom de la font
+@mixin font-face($font-family, $name, $weight: normal, $style: normal) {
+	$file-path: $pathFont + $name;
+	@font-face {
+    	font-family: $font-family;
+    	font-weight: $weight;
+    	font-style: $style;
+    	src: url('#{$file-path}.eot?#iefix')               format('embedded-opentype'),
+    		 url('#{$file-path}.woff')                     format('woff'),
+    		 url('#{$file-path}.ttf')                      format('truetype'),
+    		 url('#{$file-path}.svg##{$font-family}')      format('svg');
+    }
 }
 
-/*
- * Gradient simple
- */
+// Gradient simple
 @mixin gradient($from, $to) {
 	background: $to; // Old browsers
 	background: -moz-linear-gradient(top, $from 0%, $to 100%); // FF3.6+
@@ -111,9 +102,7 @@ $prefix-for-spec:      true !default;
 	background: linear-gradient(to bottom, $from 0%,$to 100%); // W3C
 }
 
-/*
- * Transition simple
- */
+// Transition simple
 @mixin transition($prop: all, $dur: .2s, $fn: ease-in) {
 	-webkit-transition: $prop $dur $fn;
 	-moz-transition: $prop $dur $fn;
@@ -122,28 +111,22 @@ $prefix-for-spec:      true !default;
 	transition: $prop $dur $fn;
 }
 
-/*
- * Cross browser opacity
- */
+// Cross browser opacity
 @mixin opacity($value) {
 	filter: alpha(opacity=$value);
 	-ms-filter: "alpha(opacity=$value)";
 	@include prefixer(opacity, $value, webkit moz khtml);
 }
 
-/*
- * Input text placeholder style
- */
+// Input text placeholder style
 @mixin placeholder {
 	&::-webkit-input-placeholder { @content; }
 	&:-ms-input-placeholder { @content; }
 	&:-moz-placeholder { @content; }
 }
 
-/*
- * SASS mixins for future proof resolution media query
- * @author 14islands.com
- */
+// SASS mixins for future proof resolution media query
+// @author 14islands.com
 @mixin if-resolution($prefix, $dppx) {
 	$dpi: $dppx * 96;
 	@media
@@ -168,9 +151,7 @@ $prefix-for-spec:      true !default;
 	}
 }
 
-/*
- * Retinafy background image
- */
+// Retinafy background image
 @mixin retinafy ($image, $width, $height, $color: transparent, $ext: 'png') {
 	background-color: $color;
 	@include if-max-res(1.49) {
@@ -185,9 +166,7 @@ $prefix-for-spec:      true !default;
 	}
 }
 
-/*
- * Sprite
- */
+// Sprite
 @mixin sprite ($width, $height, $pos1: 0, $pos2: 0, $name: 'sprite.png') {
 	width: $width;
 	height: $height;
@@ -196,50 +175,12 @@ $prefix-for-spec:      true !default;
 	@include retinafy($pathImg + $name + '?v=' + $cacheQuery, $spriteWidth, $spriteHeight);
 }
 
-/*
- * Content selection
- */
+// Content selection
 @mixin selection {
 	::-moz-selection {
 		@content
 	}
 	::selection {
 		@content
-	}
-}
-
-
-/* ======================================== *
- | Silent (abstract) classes				|
- * ======================================= */
-
-/*
- * Inline-block
- */
-%inline-block {
-	display: inline-block;
-	vertical-align: baseline;
-	.lte-ie7 & {
-		display: inline;
-		vertical-align: auto;
-		zoom: 1;
-	}
-}
-
-/*
- * Clearfix
- * micro version
- */
-%clearfix {
-	&:before,
-	&:after {
-		content: " ";
-		display: table;
-	}
-	&:after {
-		clear: both;
-	}
-	.lte-ie7 & {
-	    zoom: 1;
 	}
 }

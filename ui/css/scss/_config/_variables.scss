@@ -6,11 +6,16 @@ $pathImg: '../img/';
 $pathFont: '../font/';
 
 // Main colors
-$color1: #BADA55;
+$rose: #ff006c;
+$vert: #cad820;
+
+// Custom fonts
+$font1: 'amerits';
 
 // Font stacks
-$font1: arial, sans-serif;
-$font2: georgia, times, serif;
+$baton: arial, sans-serif;
+$serif: georgia, times, serif;
+$amerits: $font1, times;
 
 // Responsive Breakpoints
 $sizeMobile : 500;
