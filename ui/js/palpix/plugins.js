@@ -2,25 +2,22 @@
  * PX plugins management
  * Loader based on http://yepnopejs.com/
  */	
-(function(loader) {
-	
+(function (loader, $, html) {
+	'use strict';
 	// Module declaration
 	var moduleName = 'plugins',
-		logPrefix = 'px.' + moduleName;
+		logPrefix = 'px.' + moduleName,
+		_path = PX.path.scripts + 'plugin/',
+		_defaults = {
+			name: '',
+			condition: function(){},
+			callback: function(){}
+		};
 	
 	// Dependency
 	if (!PX.mod.test(moduleName, ['test'])) {
 		return;
 	}
-	
-	// Private vars
-	var _path = PX.path.scripts + 'plugin/',
-		_defaults = {
-			name: '',
-			selector: '',
-			condition: function(){},
-			callback: function(){}
-		};
 	
 	// Module definition
 	PX[moduleName] = {
@@ -28,7 +25,7 @@
 		// Plugins registred list 
 		list: {},
 		
-		// Plugin registration
+		// Plugin registration method (use it in app.js)
 		register: function (options) {
 			var that = this,
 				opts = $.extend({}, _defaults, options);
@@ -36,9 +33,14 @@
 				PXU.log(logPrefix + ' : Name missing for Plugins registration', 'error');
 				return;
 			}
+			if (that.list[opts.name]) {
+				PXU.log(logPrefix + ' : Plugin "' + opts.name + '" already registred', 'error');
+				return;
+			}
 			that.list[opts.name] = opts;
 			that.list[opts.name].loaded = false;
-			that.loadProcess(opts.name, opts.init);
+			html.className += ' no-' + opts.name;
+			that.loadProcess(opts.name, opts.callback);
 		},
 		
 		// Plugin initialization
@@ -56,14 +58,14 @@
 				cb();
 			}
 			else {
-				that.loadProcess(pluginName, callback);
+				that.loadProcess(pluginName, cb);
 			}
 		},
 		
 		// Plugin loader
 		loadProcess: function (name, callback) {
 			var that = this,
-				path = _path + name + '.js',
+				path = _path + name + '.js?v=' + PX.config.cacheQuery,
 				plugin = that.list[name];
 			
 			if (plugin.condition()) {
@@ -71,6 +73,7 @@
 					load: path,
 					callback: function () {
 						plugin.loaded = true;
+						html.className = html.className.replace('no-' + name, name);
 						callback();
 					}
 				}]);
@@ -78,4 +81,4 @@
 		}
 	};
 	
-})(yepnope);
+}(yepnope, jQuery, document.documentElement));
