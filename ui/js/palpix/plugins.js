@@ -2,22 +2,20 @@
  * PX plugins management
  * Loader based on http://yepnopejs.com/
  */	
-(function (loader, $, html) {
-	'use strict';
+(function (loader, $, html, moduleName) {
+	// Dependency
+	if (!PX.mod.test(moduleName, ['test'])) {
+		return;
+	}
+	
 	// Module declaration
-	var moduleName = 'plugins',
-		logPrefix = 'px.' + moduleName,
+	var logPrefix = 'px.' + moduleName,
 		_path = PX.path.scripts + 'plugin/',
 		_defaults = {
 			name: '',
 			condition: function(){},
 			callback: function(){}
 		};
-	
-	// Dependency
-	if (!PX.mod.test(moduleName, ['test'])) {
-		return;
-	}
 	
 	// Module definition
 	PX[moduleName] = {
@@ -81,4 +79,4 @@
 		}
 	};
 	
-}(yepnope, jQuery, document.documentElement));
+}(yepnope, jQuery, document.documentElement, 'plugins'));
