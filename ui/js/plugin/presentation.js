@@ -60,7 +60,6 @@
     // preventing against multiple instantiations
     $.fn[pluginName] = function (options) {
         return this.each(function (i) {
-        	console.log(pluginName + ' ' + i + ' init!');
             if (!$.data(this, 'plugin_' + pluginName)) {
                 $.data(this, 'plugin_' + pluginName, new Plugin(this, options, i));
             }
