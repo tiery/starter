@@ -1,4 +1,4 @@
-/*global PX:false, jQuery:false */
+/*global jQuery:false*/
 (function ($) {
 
     'use strict';
@@ -8,7 +8,6 @@
      */
     var pluginName = 'presentation',
         defaults = {},
-        isTouch = PX.test('touch'),
         Plugin;
 
     /*
