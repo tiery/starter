@@ -6,12 +6,13 @@
      * Params
      */
     var pluginName = 'presentation',
-        defaults = {};
+        defaults = {},
+        Plugin;
         
     /*
      * Plugin constructor
      */
-    var Plugin = function (element, options, i) {
+    Plugin = function (element, options, i) {
         
         // Plugin exposed to window
         /* window[pluginName + i] = this; */
